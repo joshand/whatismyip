@@ -17,10 +17,14 @@ def get_ip():
     print("GET /api/v0/whatismyip")
 
     xfw = request.environ.get('HTTP_X_REAL_IP')
-    if xfw == "":
+    if not xfw:
         xfw = request.environ.get('HTTP_X_FORWARDED_FOR')
-        if xfw == "":
+        if not xfw:
             xfw = request.remote_addr
+
+    if not xfw:
+        xfw = ""
+
     return xfw
 
 
